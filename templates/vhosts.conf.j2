@@ -11,9 +11,13 @@
   DocumentRoot {{ vhost.documentroot }}
 {% if vhost.accesslog is defined %}
   CustomLog "{{ vhost.accesslog }}" combined
+{% else %}
+  CustomLog "{{ apache_log_path }}/{{ vhost.servername }}_access.log" combined
 {% endif %}
 {% if vhost.errorlog is defined %}
   ErrorLog "{{ vhost.errorlog }}"
+{% else %}
+  ErrorLog "{{ apache_log_path }}/{{ vhost.servername }}_error.log"
 {% endif %}
 
 {% if vhost.serveradmin is defined %}
@@ -50,9 +54,13 @@
   DocumentRoot {{ vhost.documentroot }}
 {% if vhost.accesslog is defined %}
   CustomLog "{{ vhost.accesslog }}" combined
+{% else %}
+  CustomLog "{{ apache_log_path }}/{{ vhost.servername }}_access-ssl.log" combined
 {% endif %}
 {% if vhost.errorlog is defined %}
   ErrorLog "{{ vhost.errorlog }}"
+{% else %}
+  ErrorLog "{{ apache_log_path }}/{{ vhost.servername }}_error-ssl.log"
 {% endif %}
 
   SSLEngine on
